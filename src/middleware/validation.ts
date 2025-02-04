@@ -1,4 +1,3 @@
-// src/middleware/validation.ts
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { Receipt } from '../types';
 

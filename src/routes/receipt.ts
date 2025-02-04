@@ -1,29 +1,29 @@
-// src/routes/receipts.ts
-import express, { Request, Response } from 'express';
+import express, { Request, Response, Router } from 'express';
 import { Receipt } from '../types/index';
 import { receiptService } from '../services/receiptService';
 import { validateReceipt } from '../middleware/validation';
 
-const router = express.Router();
+const router :Router = express.Router();
 
 
-router.post('/process', validateReceipt, (req: Request, res: Response) => {
+router.post('/process', validateReceipt, (req: Request<{}, any, Receipt>, res: Response) => {
     try {
         const receipt: Receipt = req.body;
         const id = receiptService.processReceipt(receipt);
         res.json({ id });
     } catch (error) {
-        res.status(400).json({ error: 'Please verify input.' });
+        res.status(400).json({ error: 'The receipt is invalid.'});
     }
 });
 
-//@ts-ignore
-router.get('/:id/points', (req: Request, res: Response) => {
-    const { id } = req.params as { id: string };
+
+router.get('/:id/points', (req: Request<{ id: string }>, res: Response) => {
+    const { id } = req.params ;
     const points = receiptService.getPoints(id);
     
     if (points === null) {
-        return res.status(404).json({ error: 'No receipt found for that ID.' });
+        res.status(404).json({ error: 'No receipt found for that ID.' });
+        return
     }
     
     res.json({ points });
