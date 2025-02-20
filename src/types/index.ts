@@ -5,7 +5,7 @@ export interface Item {
 
 export interface Receipt {
     retailer: string;
-    purchaseDate: string;
+    purchaseDate:string;
     purchaseTime: string;
     items: Item[];
     total: string;

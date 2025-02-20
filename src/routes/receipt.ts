@@ -29,4 +29,26 @@ router.get('/:id/points', (req: Request<{ id: string }>, res: Response) => {
     res.json({ points });
 });
 
+router.delete('/:id/del', (req:Request<{id:string}>, res:Response)=>{
+
+    try{
+    const {id} = req.params
+    
+    const result = receiptService.delReceipt(id);
+        
+        if (result) {
+            res.status(200).json({ message:`the deleted receipt ID:${id}` });
+        } else {
+            res.status(404).json({ error: 'Receipt not found' });
+        }
+    }catch(error){
+        res.status(500)
+    }
+
+})
+
+
 export default router;
+
+
+//:id 

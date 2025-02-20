@@ -21,6 +21,12 @@ class ReceiptService {
         return receipt ? receipt.points : null;
     }
 
+
+    public delReceipt(id:string) {
+            const  result = this.receipts.delete(id)
+            return id;
+    }
+
     private calculatePoints(receipt: Receipt): number {
         let points = 0;
 

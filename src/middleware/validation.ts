@@ -17,11 +17,15 @@ export const validateReceipt: RequestHandler = (req: Request, res: Response, nex
         return;
     }
 
-    // Validate purchase date format (YYYY-MM-DD)
+    // Validate purchase date format (YYYY-MM-DD) //12 Feb 2025 // 
     if (!/^\d{4}-\d{2}-\d{2}$/.test(receipt.purchaseDate)) {
         res.status(400).json({ error: 'The receipt is invalid.' });
         return;
     }
+
+    // if (!isNaN(Date.parse(receipt.purchaseDate))){
+    //     res.status(400)
+    // }
 
     // Validate purchase time format (HH:MM)
     if (!/^([01]\d|2[0-3]):([0-5]\d)$/.test(receipt.purchaseTime)) {
